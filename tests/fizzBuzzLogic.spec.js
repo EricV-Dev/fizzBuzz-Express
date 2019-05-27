@@ -1,3 +1,5 @@
+jest.mock("../fizzBuzzLogic");
+
 const fB = require("../fizzBuzzLogic");
 
 test("fizzBuzzLogic - should match expected values array", () => {

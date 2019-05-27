@@ -39,5 +39,6 @@ module.exports.fizzBuzzResults = function() {
     let resArray = fizzBuzz(i);
     x.push(resArray);
   }
+  console.log("hitting API");
   return x;
 };
