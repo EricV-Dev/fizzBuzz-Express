@@ -1,13 +1,3 @@
-function fizzBuzzLogic(req, res, next) {
-  let x = [];
-  for (let i = 1; i <= 36; i++) {
-    let resArray = fizzBuzz(i);
-    x.push(resArray);
-  }
-  res.send(x);
-  console.log(x.length);
-}
-
 function fizzBuzz(i) {
   let retVal = "";
 
@@ -31,13 +21,24 @@ function fizzBuzz(i) {
   return retVal;
 }
 
-module.exports = fizzBuzzLogic;
-
-module.exports.fizzBuzzResults = function() {
+function fizzBuzzLog() {
+  const fizzLoop = 36;
   let x = [];
-  for (let i = 1; i <= 36; i++) {
+  for (let i = 1; i <= fizzLoop; i++) {
     let resArray = fizzBuzz(i);
     x.push(resArray);
   }
+  return x;
+}
+
+function fizzBuzzLogic(req, res) {
+  let x = fizzBuzzLog();
+  res.send(x);
+}
+
+module.exports = fizzBuzzLogic;
+
+module.exports.fizzBuzzResults = function() {
+  let x = fizzBuzzLog();
   return x;
 };
