@@ -2,6 +2,10 @@ const express = require("express");
 const fizzBuzzLogic = require("./fizzBuzzLogic");
 const app = express();
 
+const cors = require("cors");
+
+app.use(cors());
+
 app.get("/", (req, res, next) => {
   res.send("FizzBuzzApp");
   next();

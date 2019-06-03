@@ -21,8 +21,7 @@ function fizzBuzz(i) {
   return retVal;
 }
 
-function fizzBuzzLog() {
-  const fizzLoop = 36;
+function fizzBuzzLog(fizzLoop) {
   let x = [];
   for (let i = 1; i <= fizzLoop; i++) {
     let resArray = fizzBuzz(i);
@@ -32,13 +31,13 @@ function fizzBuzzLog() {
 }
 
 function fizzBuzzLogic(req, res) {
-  let x = fizzBuzzLog();
+  let x = fizzBuzzLog(36);
   res.send(x);
 }
 
 module.exports = fizzBuzzLogic;
 
 module.exports.fizzBuzzResults = function() {
-  let x = fizzBuzzLog();
+  let x = fizzBuzzLog(36);
   return x;
 };
