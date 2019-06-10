@@ -1,5 +1,6 @@
 const express = require("express");
-const fizzBuzzLogic = require("./fizzBuzzLogic");
+const fizzBuzzLogin = require("./fizzBuzzLogin");
+const fizzBuzzParam = require("./fizzBuzzLogic");
 const app = express();
 
 const cors = require("cors");
@@ -11,7 +12,9 @@ app.get("/", (req, res, next) => {
   next();
 });
 
-app.use("/api/fizzBuzz", fizzBuzzLogic);
+app.get("/login", fizzBuzzLogin);
+
+app.use("/api/fizzBuzz", fizzBuzzParam);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

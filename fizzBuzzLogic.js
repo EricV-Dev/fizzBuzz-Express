@@ -21,22 +21,23 @@ function fizzBuzz(i) {
   return retVal;
 }
 
-function fizzBuzzLog(fizzLoop) {
+function fizzBuzzLog(urlnum) {
   let x = [];
-  for (let i = 1; i <= fizzLoop; i++) {
-    let resArray = fizzBuzz(i);
-    x.push(resArray);
+  for (let num = 1; num <= urlnum; num++) {
+    let result = fizzBuzz(num);
+    x.push({ num, result });
   }
   return x;
 }
 
-function fizzBuzzLogic(req, res) {
-  let x = fizzBuzzLog(36);
+function fizzBuzzParam(req, res) {
+  let x = fizzBuzzLog(req.query.num);
   res.send(x);
 }
 
-module.exports = fizzBuzzLogic;
+module.exports = fizzBuzzParam;
 
+// for unit test.
 module.exports.fizzBuzzResults = function() {
   let x = fizzBuzzLog(36);
   return x;
