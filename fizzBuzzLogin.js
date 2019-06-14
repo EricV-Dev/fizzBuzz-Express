@@ -9,12 +9,6 @@ function fizzBuzzLogin(req, res) {
   } else {
     res.send({ resposne: "Access Denied" });
   }
-
-  //   if (this.user == user) {
-  //     res.send(user);
-  //   } else {
-  //     res.send("blah");
-  //   }
 }
 
 module.exports = fizzBuzzLogin;

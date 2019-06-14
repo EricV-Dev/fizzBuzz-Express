@@ -39,6 +39,17 @@ module.exports = fizzBuzzParam;
 
 // for unit test.
 module.exports.fizzBuzzResults = function() {
-  let x = fizzBuzzLog(36);
+  let x = [];
+  let result = fizzBuzzLog(36);
+
+  for (var results in result) {
+    if (result.hasOwnProperty(results)) {
+      var myActualPropFromObj = result[results];
+
+      var shouldbeRessults = myActualPropFromObj.result;
+    }
+    x.push(shouldbeRessults);
+  }
+
   return x;
 };
