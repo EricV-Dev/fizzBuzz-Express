@@ -27,29 +27,18 @@ function fizzBuzzLog(urlnum) {
     let result = fizzBuzz(num);
     x.push({ num, result });
   }
+  const defaultValue = 10;
+  if (x.length <= 0) {
+    x = fizzBuzzLog(defaultValue);
+  }
   return x;
 }
 
-function fizzBuzzParam(req, res) {
+function fizzBuzzParam(req, res, next) {
   let x = fizzBuzzLog(req.query.num);
   res.send(x);
+  next();
 }
 
-module.exports = fizzBuzzParam;
-
-// for unit test.
-module.exports.fizzBuzzResults = function() {
-  let x = [];
-  let result = fizzBuzzLog(36);
-
-  for (var results in result) {
-    if (result.hasOwnProperty(results)) {
-      var myActualPropFromObj = result[results];
-
-      var shouldbeRessults = myActualPropFromObj.result;
-    }
-    x.push(shouldbeRessults);
-  }
-
-  return x;
-};
+module.exports.fizzBuzzLog = fizzBuzzLog;
+module.exports.fizzBuzzParam = fizzBuzzParam;

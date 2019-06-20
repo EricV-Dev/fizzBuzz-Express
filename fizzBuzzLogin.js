@@ -5,10 +5,10 @@ function fizzBuzzLogin(req, res) {
   };
 
   if (req.body.user === object.user && req.body.password === object.password) {
-    res.send({ resposne: "Access Granted" });
+    res.status(200).send({ response: "Access Granted" });
   } else {
-    res.send({ resposne: "Access Denied" });
+    res.sendStatus(401);
   }
 }
 
-module.exports = fizzBuzzLogin;
+module.exports.fizzBuzzLogin = fizzBuzzLogin;
