@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const compression = require("compression");
 
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const fizzBuzzLogic = require("./fizzBuzzLogic");
@@ -11,6 +13,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(compression());
 
 app.get("/", (req, res, next) => {
   res.send("FizzBuzzApp");
