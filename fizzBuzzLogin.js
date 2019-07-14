@@ -7,8 +7,7 @@ const app = express();
 // Requires official Node.js MongoDB Driver 3.0.0+
 
 let client = mongodb.MongoClient;
-let url =
-  "mongodb://Eric1924:Swiss1987!@ds151007.mlab.com:51007/heroku_blmkvj2v";
+let url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
 
 function fizzBuzzLogin(req, res) {
   client.connect(url, function(err, client) {
