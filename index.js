@@ -22,6 +22,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/api/login", fizzBuzzLogin.fizzBuzzLogin);
+
 app.use("/api/fizzBuzz", fizzBuzzLogic.fizzBuzzParam);
 
 const port = process.env.PORT || 3000;

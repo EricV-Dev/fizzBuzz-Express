@@ -34,10 +34,9 @@ function fizzBuzzLog(urlnum) {
   return x;
 }
 
-function fizzBuzzParam(req, res, next) {
+function fizzBuzzParam(req, res) {
   let x = fizzBuzzLog(req.query.num);
   res.send(x);
-  next();
 }
 
 module.exports.fizzBuzzLog = fizzBuzzLog;
