@@ -52,4 +52,9 @@ function fizzBuzzLogin(req, res, next) {
   res.sendStatus(401);
 }
 
+function userInfo(req, res, next) {
+  return dbInfo;
+}
+
+module.exports.userInfo = userInfo;
 module.exports.fizzBuzzLogin = fizzBuzzLogin;
