@@ -5,23 +5,29 @@ const mongodb = require("mongodb");
 
 const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
 const client = mongodb.MongoClient(url, { useNewUrlParser: true });
-const closeConnection = client.close();
+// const closeConnection = client.close();
 const connection = client.connect();
 const connect = connection;
-let dbInfo = [];
 
-connect.then(() => {
-  console.log("connected to db");
-  let db = client.db("heroku_blmkvj2v");
+let isAdmin = false;
+let dbInfo;
 
-  let collection = db.collection("users");
-  let query = {};
+function mongoConnect() {
+  connect.then(() => {
+    let db = client.db("heroku_blmkvj2v");
 
-  let cursor = collection.find(query);
-  cursor.forEach(function(doc) {
-    dbInfo.push(doc);
+    let query = {};
+
+    db.collection("users")
+      .find(query)
+      .toArray(function(err, doc) {
+        dbInfo = doc;
+        return dbInfo;
+      });
   });
-});
+}
+
+mongoConnect();
 
 function fizzBuzzLogin(req, res, next) {
   let found = dbInfo.find(found => found.user === req.body.user);
@@ -34,8 +40,10 @@ function fizzBuzzLogin(req, res, next) {
     res
       .status(200)
       .send({ response: "Access Granted / Admin", admin: found.admin });
-    closeConnection;
+    isAdmin = true;
+    // closeConnection;
     console.log("Auth Success - Connection Closed");
+
     return;
   }
   if (
@@ -44,8 +52,10 @@ function fizzBuzzLogin(req, res, next) {
     found.admin === false
   ) {
     res.send({ response: "Access Granted" });
-    closeConnection;
+    isAdmin = false;
+    // closeConnection;
     console.log("Auth Success - Connection Closed");
+
     return;
   }
 
@@ -53,8 +63,11 @@ function fizzBuzzLogin(req, res, next) {
 }
 
 function userInfo(req, res, next) {
-  return dbInfo;
+  if (isAdmin === true) {
+    return dbInfo;
+  }
 }
 
+module.exports.mongoConnect = mongoConnect;
 module.exports.userInfo = userInfo;
 module.exports.fizzBuzzLogin = fizzBuzzLogin;
