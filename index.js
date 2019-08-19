@@ -6,6 +6,7 @@ const compression = require("compression");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const fizzBuzzLogic = require("./fizzBuzzLogic");
 const updateUsername = require("./updateUsername");
+const deleteUser = require("./deleteUser");
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use("/api/login", fizzBuzzLogin.fizzBuzzLogin);
 app.use("/api/fizzBuzz", fizzBuzzLogic.fizzBuzzParam);
 
 app.use("/api/updateUsername", updateUsername.showUsers);
+
+app.use("/api/deleteUser", deleteUser.deleteUser);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
