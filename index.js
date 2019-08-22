@@ -7,6 +7,7 @@ const fizzBuzzLogin = require("./fizzBuzzLogin");
 const fizzBuzzLogic = require("./fizzBuzzLogic");
 const updateUsername = require("./updateUsername");
 const deleteUser = require("./deleteUser");
+const createUser = require("./createUser");
 
 const app = express();
 
@@ -30,6 +31,8 @@ app.use("/api/fizzBuzz", fizzBuzzLogic.fizzBuzzParam);
 app.use("/api/updateUsername", updateUsername.showUsers);
 
 app.use("/api/deleteUser", deleteUser.deleteUser);
+
+app.use("/api/createUser", createUser.createUser);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
