@@ -12,7 +12,7 @@ const connect = connection;
 let isAdmin = false;
 let dbInfo;
 
-function mongoConnect() {
+function mongoConnect(req, res, next) {
   connect.then(() => {
     let db = client.db("heroku_blmkvj2v");
 
@@ -68,6 +68,11 @@ function userInfo(req, res, next) {
   }
 }
 
+function checkAdmin() {
+  if (isAdmin === true) return true;
+}
+
+module.exports.checkAdmin = checkAdmin;
 module.exports.mongoConnect = mongoConnect;
 module.exports.userInfo = userInfo;
 module.exports.fizzBuzzLogin = fizzBuzzLogin;

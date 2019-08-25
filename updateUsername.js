@@ -17,8 +17,6 @@ let salt = 10;
 function showUsers(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
 
-  res.send(userInfo);
-
   index = req.body.index;
   user = req.body.user;
   password = req.body.password;
