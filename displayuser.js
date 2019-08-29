@@ -1,5 +1,8 @@
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const mongodb = require("mongodb");
+// const cors = require("cors");
+
+// app.use(cors());
 
 // Requires official Node.js MongoDB Driver 3.0.0+
 
