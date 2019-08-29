@@ -14,19 +14,13 @@ const app = express();
 
 const cors = require("cors");
 
-// app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
 
 //hope this works lol
-
-app.use(
-  cors({
-    credentials: true
-  })
-);
 
 app.get("/", (req, res, next) => {
   res.send("FizzBuzzApp");
