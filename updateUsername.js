@@ -17,6 +17,11 @@ let salt = 10;
 function showUsers(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
 
+  if (userInfo === undefined) {
+    res.status(401).send({ response: "Access Denied / Not Admin" });
+    console.log("Not Admmin Attempt Logged");
+  } else res.send(userInfo);
+
   index = req.body.index;
   user = req.body.user;
   password = req.body.password;
@@ -25,7 +30,8 @@ function showUsers(req, res, next) {
 
   if (passChanged === true) {
     hashedPassword = bcrypt.hashSync(password, salt);
-  } else {
+  }
+  if (passChanged === false) {
     hashedPassword = req.body.password;
   }
 

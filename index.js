@@ -8,7 +8,7 @@ const fizzBuzzLogic = require("./fizzBuzzLogic");
 const updateUsername = require("./updateUsername");
 const deleteUser = require("./deleteUser");
 const createUser = require("./createUser");
-const displayUser = require("./displayuser");
+const displayUser = require("./displayUser");
 
 const app = express();
 
@@ -20,22 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
 
-//hope this works lol
-
 app.get("/", (req, res, next) => {
   res.send("FizzBuzzApp");
   next();
 });
-
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   if (req.method === "OPTIONS") {
-//     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//     return res.status(200).json({});
-//   }
-//   next();
-// });
 
 app.use("/api/login", fizzBuzzLogin.fizzBuzzLogin);
 

@@ -1,8 +1,5 @@
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const mongodb = require("mongodb");
-const cors = require("cors");
-
-app.use(cors());
 
 // Requires official Node.js MongoDB Driver 3.0.0+
 
@@ -13,8 +10,9 @@ const connection = client.connect();
 const connect = connection;
 
 function displayUser(req, res, next) {
-  userInfo = fizzBuzzLogin.checkAdmin();
-  if (userInfo === true) {
+  displayinfo = fizzBuzzLogin.userInfo();
+
+  if (displayinfo != undefined) {
     connect.then(() => {
       let db = client.db("heroku_blmkvj2v");
 
@@ -22,13 +20,15 @@ function displayUser(req, res, next) {
 
       db.collection("users")
         .find(query)
+
         .toArray(function(err, doc) {
           dbInfo = doc;
+          console.log("Userdetail Sent");
           res.send(dbInfo);
         });
     });
   } else {
-    console.log("Access Denied - Logged ");
+    console.log("Not Admin Logged");
   }
 }
 

@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const mongodb = require("mongodb");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
-const displayuser = require("./displayuser");
 
 const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
 const client = mongodb.MongoClient(url, { useNewUrlParser: true });
@@ -17,6 +16,8 @@ let salt = 10;
 
 function createUser(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
+
+  res.send(userInfo);
 
   index = req.body.index;
   user = req.body.user;
@@ -45,9 +46,6 @@ function createNewUser(req, res, next) {
 
     function() {
       fizzBuzzLogin.mongoConnect();
-    },
-    function() {
-      displayuser.displayuser();
     }
   );
 }
