@@ -13,6 +13,7 @@ let isAdmin = false;
 let dbInfo;
 
 const cors = require("cors");
+const app = express();
 
 app.use(cors());
 
