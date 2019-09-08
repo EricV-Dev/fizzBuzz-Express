@@ -12,6 +12,10 @@ const connect = connection;
 let isAdmin = false;
 let dbInfo;
 
+const cors = require("cors");
+
+app.use(cors());
+
 function mongoConnect(req, res, next) {
   connect.then(() => {
     let db = client.db("heroku_blmkvj2v");
