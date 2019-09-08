@@ -35,7 +35,7 @@ app.use("/api/deleteUser", deleteUser.deleteUser);
 
 app.use("/api/createUser", createUser.createUser);
 
-app.use("/api/displayUser", displayUser.displayUser);
+app.use("/api/displayuser", displayUser.displayUser);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
