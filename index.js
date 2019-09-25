@@ -9,6 +9,8 @@ const updateUsername = require("./updateUsername");
 const deleteUser = require("./deleteUser");
 const createUser = require("./createUser");
 const displayUser = require("./displayUser");
+const sqlDisplayUser = require("./SQLcode/sqlDisplayUser");
+const sqlCreateUser = require("./SQLcode/sqlCreateUser");
 
 const app = express();
 
@@ -36,6 +38,10 @@ app.use("/api/deleteUser", deleteUser.deleteUser);
 app.use("/api/createUser", createUser.createUser);
 
 app.use("/api/displayUser", displayUser.displayUser);
+
+app.use("/api/displayUserSQL", sqlDisplayUser.sqlUsers);
+
+app.use("/api/createUserSQL", sqlCreateUser.createUserSql);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

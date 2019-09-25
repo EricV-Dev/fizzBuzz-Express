@@ -32,5 +32,4 @@ function displayUser(req, res, next) {
   }
 }
 
-// ahhhhh
 module.exports.displayUser = displayUser;
