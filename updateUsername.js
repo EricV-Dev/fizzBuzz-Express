@@ -20,13 +20,25 @@ function showUsers(req, res, next) {
   if (userInfo === undefined) {
     res.status(401).send({ response: "Access Denied / Not Admin" });
     console.log("Not Admmin Attempt Logged");
-  } else res.send(userInfo);
+    return;
+  }
 
   index = req.body.index;
   user = req.body.user;
   password = req.body.password;
   admin = req.body.admin;
   passChanged = req.body.passChanged;
+  userChanged = req.body.userChanged;
+
+  if (userChanged === true) {
+    for (let value of Object.values(userInfo)) {
+      if (value.user.indexOf(user) !== -1) {
+        res.status(403).send({
+          response: "Duplicate"
+        });
+      }
+    }
+  }
 
   if (passChanged === true) {
     hashedPassword = bcrypt.hashSync(password, salt);
@@ -34,6 +46,8 @@ function showUsers(req, res, next) {
   if (passChanged === false) {
     hashedPassword = req.body.password;
   }
+
+  res.send(userInfo);
 
   updateUserName();
 }

@@ -1,5 +1,6 @@
-const fizzBuzzLogin = require("../fizzBuzzLogin");
 const bcrypt = require("bcryptjs");
+const fizzBuzzLogin = require("../fizzBuzzLogin");
+const sqlDisplyUser = require("./sqlDisplayUser");
 
 let mysql = require("mysql");
 var connection = mysql.createConnection({
@@ -9,30 +10,43 @@ var connection = mysql.createConnection({
   database: "iibflt0h88ep5e76"
 });
 
+let result;
+
 let userInfo;
+let index;
 let user;
-let admin;
+let userOg;
 let password;
 let hashedPassword;
 let salt = 10;
 
 let displayResult = "SELECT * from Users";
 
-function createUserSql(req, res, next) {
+function sqlUpdateUser(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
+
+  index = req.body.index;
   user = req.body.user;
+  userOg = req.body.ogUserSend;
   password = req.body.password;
   admin = req.body.admin;
+  passChanged = req.body.passChanged;
+  userChanged = req.body.userChanged;
 
-  if (admin === undefined) {
-    admin = false;
+  if (passChanged === true) {
+    hashedPassword = bcrypt.hashSync(password, salt);
+  }
+  if (passChanged === false) {
+    hashedPassword = req.body.password;
   }
 
   if (userInfo === undefined) {
     res.status(401).send({ response: "Access Denied / Not Admin" });
     console.log("Not Admmin Attempt Logged");
     return;
-  } else
+  }
+
+  if (userChanged === true) {
     connection.query(displayResult, function(error, results, fields) {
       for (let value of Object.values(results)) {
         if (value.username.indexOf(user) !== -1) {
@@ -41,28 +55,32 @@ function createUserSql(req, res, next) {
           });
           return;
         } else res.send(userInfo);
-        createNewUser();
+        sqlUpdate();
         return;
       }
     });
+    return;
+  } else res.send(userInfo);
+
+  sqlUpdate();
+  return;
 }
 
-function createNewUser(req, res) {
-  displayinfo = fizzBuzzLogin.userInfo();
-  if (displayinfo != undefined) {
-    let createNewUserQuery =
-      " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES ('" +
-      user +
-      "', '" +
-      hashedPassword +
-      "' , '" +
-      admin +
-      "')";
+function sqlUpdate(req, res, next) {
+  let updateNewUserQuery =
+    "UPDATE `iibflt0h88ep5e76`.`Users` SET `username`='" +
+    user +
+    "', `password`='" +
+    hashedPassword +
+    "', `admin`='" +
+    admin +
+    "' WHERE `username`='" +
+    userOg +
+    "';";
 
-    connection.query(createNewUserQuery, function(err, result) {
-      if (err) throw err;
-    });
-  }
+  connection.query(updateNewUserQuery, function(err, result) {
+    if (err) throw err;
+  });
 }
 
-module.exports.createUserSql = createUserSql;
+module.exports.sqlUpdateUser = sqlUpdateUser;

@@ -11,6 +11,8 @@ const createUser = require("./createUser");
 const displayUser = require("./displayUser");
 const sqlDisplayUser = require("./SQLcode/sqlDisplayUser");
 const sqlCreateUser = require("./SQLcode/sqlCreateUser");
+const sqlUpdateUser = require("./SQLcode/sqlUpdateUser");
+const sqlDeleteUser = require("./SQLcode/sqlDeleteUser");
 
 const app = express();
 
@@ -42,6 +44,10 @@ app.use("/api/displayUser", displayUser.displayUser);
 app.use("/api/displayUserSQL", sqlDisplayUser.sqlUsers);
 
 app.use("/api/createUserSQL", sqlCreateUser.createUserSql);
+
+app.use("/api/updateUserSQL", sqlUpdateUser.sqlUpdateUser);
+
+app.use("/api/deleteUserSQL", sqlDeleteUser.deleteUserSQL);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

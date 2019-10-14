@@ -8,7 +8,6 @@ const connection = client.connect();
 const connect = connection;
 
 let userInfo;
-let index;
 let user;
 let password;
 let hashedPassword;
@@ -16,14 +15,18 @@ let salt = 10;
 
 function createUser(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
-
-  res.send(userInfo);
-
-  index = req.body.index;
   user = req.body.user;
   password = req.body.password;
   admin = req.body.admin;
 
+  for (let value of Object.values(userInfo)) {
+    if (value.user.indexOf(user) !== -1) {
+      res.status(403).send({
+        response: "Duplicate"
+      });
+    }
+  }
+  res.send(userInfo);
   hashedPassword = bcrypt.hashSync(password, salt);
 
   if (admin === undefined) {
