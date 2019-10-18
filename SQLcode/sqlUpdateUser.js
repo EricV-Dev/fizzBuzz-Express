@@ -68,15 +68,14 @@ function sqlUpdateUser(req, res, next) {
 
 function sqlUpdate(req, res, next) {
   let updateNewUserQuery =
-    "UPDATE `iibflt0h88ep5e76`.`Users` SET `username`='" +
-    user +
-    "', `password`='" +
-    hashedPassword +
-    "', `admin`='" +
-    admin +
-    "' WHERE `username`='" +
-    userOg +
-    "';";
+    "UPDATE `iibflt0h88ep5e76`.`Users` SET `username`=" +
+    connection.escape(user) +
+    ", `password`=" +
+    connection.escape(hashedPassword) +
+    ", `admin`=" +
+    connection.escape(admin) +
+    " WHERE `username`=" +
+    connection.escape(userOg);
 
   connection.query(updateNewUserQuery, function(err, result) {
     if (err) throw err;

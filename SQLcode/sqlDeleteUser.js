@@ -36,7 +36,8 @@ function deleteUserSQL(req, res, next) {
 
 function sqlDelete(req, res, next) {
   let updateNewUserQuery =
-    "DELETE FROM `iibflt0h88ep5e76`.`Users` WHERE `username`='" + user + "';";
+    "DELETE FROM `iibflt0h88ep5e76`.`Users` WHERE `username`=" +
+    connection.escape(user);
 
   connection.query(updateNewUserQuery, function(err, result) {
     if (err) throw err;
@@ -45,3 +46,8 @@ function sqlDelete(req, res, next) {
 
 module.exports.deleteUserSQL = deleteUserSQL;
 module.exports.sqlDelete = sqlDelete;
+
+// let updateNewUserQuery =
+//   "DELETE FROM `iibflt0h88ep5e76`.`Users` WHERE `username`=' ? " , [user];
+//ahhhhhhhhhhhhhhhh
+//let updateNewUserQuery = "DELETE FROM `iibflt0h88ep5e76`.`Users` WHERE `username`='" + user + "';";

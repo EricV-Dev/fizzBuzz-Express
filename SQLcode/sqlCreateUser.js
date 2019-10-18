@@ -21,7 +21,7 @@ let displayResult = "SELECT * from Users";
 function createUserSql(req, res, next) {
   userInfo = fizzBuzzLogin.userInfo();
   user = req.body.user;
-  password = req.body.password;
+  password = bcrypt.hashSync(req.body.password, salt);
   admin = req.body.admin;
 
   if (admin === undefined) {
@@ -49,16 +49,18 @@ function createUserSql(req, res, next) {
 
 function createNewUser(req, res) {
   displayinfo = fizzBuzzLogin.userInfo();
+
   if (displayinfo != undefined) {
     let createNewUserQuery =
-      " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES ('" +
-      user +
-      "', '" +
-      hashedPassword +
-      "' , '" +
-      admin +
-      "')";
+      " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES (" +
+      connection.escape(user) +
+      "," +
+      connection.escape(password) +
+      "," +
+      connection.escape(String(admin)) +
+      ")";
 
+    console.log(typeof admin);
     connection.query(createNewUserQuery, function(err, result) {
       if (err) throw err;
     });
@@ -66,3 +68,21 @@ function createNewUser(req, res) {
 }
 
 module.exports.createUserSql = createUserSql;
+
+// function createNewUser(req, res) {
+//   displayinfo = fizzBuzzLogin.userInfo();
+//   if (displayinfo != undefined) {
+//     let createNewUserQuery =
+//       " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES ('" +
+//       user +
+//       "', '" +
+//       hashedPassword +
+//       "' , '" +
+//       admin +
+//       "')";
+
+//     connection.query(createNewUserQuery, function(err, result) {
+//       if (err) throw err;
+//     });
+//   }
+// }

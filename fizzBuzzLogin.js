@@ -68,7 +68,7 @@ function fizzBuzzLogin(req, res, next) {
       return;
     }
   }
-
+  // seems to not be actually getting the database upon login
   if (req.body.database == "SQL") {
     let loginUser =
       "SELECT * from Users WHERE `username`='" + req.body.user + "';";
