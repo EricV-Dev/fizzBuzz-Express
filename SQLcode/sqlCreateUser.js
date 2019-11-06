@@ -2,12 +2,7 @@ const fizzBuzzLogin = require("../fizzBuzzLogin");
 const bcrypt = require("bcryptjs");
 
 let mysql = require("mysql");
-var connection = mysql.createConnection({
-  host: "fnx6frzmhxw45qcb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "mqzdfrd6f1g51w98",
-  password: "ydd1q0o7d6i76u6v",
-  database: "iibflt0h88ep5e76"
-});
+var connection = mysql.createConnection(SQL_Database);
 
 let userInfo;
 let user;
@@ -60,7 +55,6 @@ function createNewUser(req, res) {
       connection.escape(String(admin)) +
       ")";
 
-    console.log(typeof admin);
     connection.query(createNewUserQuery, function(err, result) {
       if (err) throw err;
     });
@@ -68,21 +62,3 @@ function createNewUser(req, res) {
 }
 
 module.exports.createUserSql = createUserSql;
-
-// function createNewUser(req, res) {
-//   displayinfo = fizzBuzzLogin.userInfo();
-//   if (displayinfo != undefined) {
-//     let createNewUserQuery =
-//       " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES ('" +
-//       user +
-//       "', '" +
-//       hashedPassword +
-//       "' , '" +
-//       admin +
-//       "')";
-
-//     connection.query(createNewUserQuery, function(err, result) {
-//       if (err) throw err;
-//     });
-//   }
-// }

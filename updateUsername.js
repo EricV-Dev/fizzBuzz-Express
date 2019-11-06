@@ -1,10 +1,9 @@
 const mongodb = require("mongodb");
 const bcrypt = require("bcryptjs");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
+const environment = require("./.env");
 
-const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
-const client = mongodb.MongoClient(url, { useNewUrlParser: true });
-const connection = client.connect();
+const connection = CLIENT.connect();
 const connect = connection;
 
 let userInfo;
@@ -57,7 +56,7 @@ function updateUserName(req, res, next) {
     $set: { user: user, password: hashedPassword, admin: admin }
   };
 
-  let db = client.db("heroku_blmkvj2v");
+  let db = CLIENT.db(MGDB_DATA_NAME);
   db.collection("users").updateMany(
     userInfo[index],
     newValues,

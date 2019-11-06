@@ -1,12 +1,8 @@
 const fizzBuzzLogin = require("../fizzBuzzLogin");
+const environment = require("../.env");
 
 let mysql = require("mysql");
-var connection = mysql.createConnection({
-  host: "fnx6frzmhxw45qcb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "mqzdfrd6f1g51w98",
-  password: "ydd1q0o7d6i76u6v",
-  database: "iibflt0h88ep5e76"
-});
+var connection = mysql.createConnection(SQL_Database);
 
 let displayResult = "SELECT * from Users";
 

@@ -1,9 +1,8 @@
 const mongodb = require("mongodb");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
+const environment = require("./.env");
 
-const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
-const client = mongodb.MongoClient(url, { useNewUrlParser: true });
-const connection = client.connect();
+const connection = CLIENT.connect();
 const connect = connection;
 
 let userInfo;
@@ -26,7 +25,7 @@ function deleteUser(req, res, next) {
 }
 
 function deleteUserObj(req, res, next) {
-  let db = client.db("heroku_blmkvj2v");
+  let db = CLIENT.db(MGDB_DATA_NAME);
   db.collection("users").deleteOne(
     userInfo[index],
 

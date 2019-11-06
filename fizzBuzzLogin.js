@@ -1,28 +1,21 @@
 const bcrypt = require("bcryptjs");
 const mongodb = require("mongodb");
+const environment = require("./.env");
 
 // Requires official Node.js MongoDB Driver 3.0.0+
 
-const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
-const client = mongodb.MongoClient(url, { useNewUrlParser: true });
-// const closeConnection = client.close();
-const connection = client.connect();
+const connection = CLIENT.connect();
 const connect = connection;
 
 let isAdmin = false;
 let dbInfo;
 
 let mysql = require("mysql");
-var connectionSQL = mysql.createConnection({
-  host: "fnx6frzmhxw45qcb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "mqzdfrd6f1g51w98",
-  password: "ydd1q0o7d6i76u6v",
-  database: "iibflt0h88ep5e76"
-});
+var connectionSQL = mysql.createConnection(SQL_Database);
 
 function mongoConnect(req, res, next) {
   connect.then(() => {
-    let db = client.db("heroku_blmkvj2v");
+    let db = CLIENT.db(MGDB_DATA_NAME);
 
     let query = {};
 
@@ -71,7 +64,9 @@ function fizzBuzzLogin(req, res, next) {
   // seems to not be actually getting the database upon login
   if (req.body.database == "SQL") {
     let loginUser =
-      "SELECT * from Users WHERE `username`='" + req.body.user + "';";
+      "SELECT * from Users WHERE `username`=" +
+      connectionSQL.escape(req.body.user);
+
     connectionSQL.query(loginUser, function(err, result) {
       let userSql = result;
 
