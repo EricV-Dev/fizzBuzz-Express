@@ -3,7 +3,7 @@ const mongodb = require("mongodb");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const environment = require("./.env");
 
-const connection = CLIENT.connect();
+const connection = Client.connect();
 const connect = connection;
 
 let userInfo;
@@ -42,7 +42,7 @@ function createNewUser(req, res, next) {
     admin: admin
   };
 
-  let db = CLIENT.db(MGDB_DATA_NAME);
+  let db = Client.db(Mgdb_Data_Name);
   db.collection("users").insertOne(
     newValues,
 

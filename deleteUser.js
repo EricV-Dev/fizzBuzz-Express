@@ -2,7 +2,7 @@ const mongodb = require("mongodb");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const environment = require("./.env");
 
-const connection = CLIENT.connect();
+const connection = Client.connect();
 const connect = connection;
 
 let userInfo;
@@ -25,7 +25,7 @@ function deleteUser(req, res, next) {
 }
 
 function deleteUserObj(req, res, next) {
-  let db = CLIENT.db(MGDB_DATA_NAME);
+  let db = Client.db(Mgdb_Data_Name);
   db.collection("users").deleteOne(
     userInfo[index],
 

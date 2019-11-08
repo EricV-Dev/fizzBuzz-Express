@@ -4,7 +4,7 @@ const environment = require("./.env");
 
 // Requires official Node.js MongoDB Driver 3.0.0+
 
-const connection = CLIENT.connect();
+const connection = Client.connect();
 const connect = connection;
 
 let isAdmin = false;
@@ -15,7 +15,7 @@ var connectionSQL = mysql.createConnection(SQL_Database);
 
 function mongoConnect(req, res, next) {
   connect.then(() => {
-    let db = CLIENT.db(MGDB_DATA_NAME);
+    let db = Client.db(Mgdb_Data_Name);
 
     let query = {};
 

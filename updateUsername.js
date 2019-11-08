@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const fizzBuzzLogin = require("./fizzBuzzLogin");
 const environment = require("./.env");
 
-const connection = CLIENT.connect();
+const connection = Client.connect();
 const connect = connection;
 
 let userInfo;
@@ -56,7 +56,7 @@ function updateUserName(req, res, next) {
     $set: { user: user, password: hashedPassword, admin: admin }
   };
 
-  let db = CLIENT.db(MGDB_DATA_NAME);
+  let db = Client.db(Mgdb_Data_Name);
   db.collection("users").updateMany(
     userInfo[index],
     newValues,

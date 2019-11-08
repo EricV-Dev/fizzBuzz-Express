@@ -7,7 +7,7 @@ const environment = require("./.env");
 // const url = "mongodb://Fizz:Buzz123@ds151007.mlab.com:51007/heroku_blmkvj2v";
 // const client = mongodb.MongoClient(url, { useNewUrlParser: true });
 
-const connection = CLIENT.connect();
+const connection = Client.connect();
 const connect = connection;
 
 function displayUser(req, res, next) {
@@ -15,7 +15,7 @@ function displayUser(req, res, next) {
 
   if (displayinfo != undefined) {
     connect.then(() => {
-      let db = CLIENT.db(MGDB_DATA_NAME);
+      let db = Client.db(Mgdb_Data_Name);
 
       let query = {};
 
