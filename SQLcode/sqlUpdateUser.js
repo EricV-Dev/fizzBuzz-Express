@@ -13,6 +13,7 @@ let userOg;
 let password;
 let hashedPassword;
 let salt = 10;
+let duplicate = false;
 
 let displayResult = "SELECT * from Users";
 
@@ -41,34 +42,32 @@ function sqlUpdateUser(req, res, next) {
   }
 
   if (userChanged === true) {
+    // sending only first unless delete if statement.
     connection.query(displayResult, function(error, results, fields) {
-      for (let value of Object.values(results)) {
-        if (value.username.indexOf(user) !== -1) {
+      for (value of results) {
+        if (value.UserName === user) {
           res.status(403).send({
             response: "Duplicate"
           });
           return;
-        } else res.send(userInfo);
-        sqlUpdate();
-        return;
+        }
       }
+      res.send(userInfo);
+      sqlUpdate();
+      return;
     });
-    return;
-  } else res.send(userInfo);
-
-  sqlUpdate();
-  return;
+  }
 }
 
 function sqlUpdate(req, res, next) {
   let updateNewUserQuery =
-    "UPDATE `iibflt0h88ep5e76`.`Users` SET `username`=" +
+    "UPDATE `iibflt0h88ep5e76`.`Users` SET `UserName`=" +
     connection.escape(user) +
-    ", `password`=" +
+    ", `Password`=" +
     connection.escape(hashedPassword) +
-    ", `admin`=" +
+    ", `IsAdmin`=" +
     connection.escape(admin) +
-    " WHERE `username`=" +
+    " WHERE `UserName`=" +
     connection.escape(userOg);
 
   connection.query(updateNewUserQuery, function(err, result) {
@@ -77,3 +76,12 @@ function sqlUpdate(req, res, next) {
 }
 
 module.exports.sqlUpdateUser = sqlUpdateUser;
+
+// if (value.UserName.indexOf(user) !== -1) {
+//   res.status(403).send({
+//     response: "Duplicate"
+//   });
+//   return;
+// } else res.send(userInfo);
+// sqlUpdate();
+// return;

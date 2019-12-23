@@ -29,16 +29,17 @@ function createUserSql(req, res, next) {
     return;
   } else
     connection.query(displayResult, function(error, results, fields) {
-      for (let value of Object.values(results)) {
-        if (value.username.indexOf(user) !== -1) {
+      for (value of results) {
+        if (value.UserName === user) {
           res.status(403).send({
             response: "Duplicate"
           });
           return;
-        } else res.send(userInfo);
-        createNewUser();
-        return;
+        }
       }
+      res.send(userInfo);
+      createNewUser();
+      return;
     });
 }
 
@@ -47,7 +48,7 @@ function createNewUser(req, res) {
 
   if (displayinfo != undefined) {
     let createNewUserQuery =
-      " INSERT INTO `iibflt0h88ep5e76`.`Users` (`username`, `password`, `admin`) VALUES (" +
+      " INSERT INTO `iibflt0h88ep5e76`.`Users` (`UserName`, `Password`, `IsAdmin`) VALUES (" +
       connection.escape(user) +
       "," +
       connection.escape(password) +

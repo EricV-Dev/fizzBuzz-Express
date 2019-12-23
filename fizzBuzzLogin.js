@@ -61,27 +61,27 @@ function fizzBuzzLogin(req, res, next) {
       return;
     }
   }
-  // seems to not be actually getting the database upon login
+
   if (req.body.database == "SQL") {
     let loginUser =
-      "SELECT * from Users WHERE `username`=" +
+      "SELECT * from Users WHERE `UserName`=" +
       connectionSQL.escape(req.body.user);
 
     connectionSQL.query(loginUser, function(err, result) {
       let userSql = result;
 
-      if (userSql[0].username == undefined) {
+      if (userSql[0].UserName == undefined) {
         res.sendStatus(401);
         return;
       }
       if (
-        userSql[0].username === req.body.user &&
-        userSql[0].admin === "true" &&
-        bcrypt.compareSync(req.body.password, userSql[0].password) === true
+        userSql[0].UserName === req.body.user &&
+        userSql[0].IsAdmin === "true" &&
+        bcrypt.compareSync(req.body.password, userSql[0].Password) === true
       ) {
         res.status(200).send({
           response: "Access Granted / Admin",
-          admin: userSql[0].admin
+          admin: userSql[0].IsAdmin
         });
         isAdmin = true;
 
